@@ -48,6 +48,10 @@ To test the project run command `./gradlew test`
 | **tailSet(E, boolean)**             |     $O(1)$      |     $O(1)$      |   Tie   |
 | **tailSet().iterator()**            |     $O(k)$      |     $O(k)$      |   Tie   |
 
+**Notes**:
+- **m**: Number of elements in collection to be added to set.
+- **k**: Number of elements in subset iterator.
+
 ### Space Complexity
 
 | Operation / Method                  |   Custom    |    JDK     | Winner |
