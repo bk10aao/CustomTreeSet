@@ -113,6 +113,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
         return false;
     }
 
+    @Override
     public Iterator<E> descendingIterator() {
         return new Iterator<>() {
             private Node<E> next = getLastNode();
@@ -175,7 +176,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
     }
 
     public NavigableSet<E> headSet(E toElement, boolean inclusive) {
-        return new SubSetView<E>(this, false, null, false, true, toElement, inclusive);
+        return new SubSetView<>(this, false, null, false, true, toElement, inclusive);
     }
 
     public E higher(E item) {
@@ -195,15 +196,18 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
         return size == 0;
     }
 
+    @Override
     public Iterator<E> iterator() {
         return new Iterator<>() {
             private Node<E> next = getFirstNode();
             private Node<E> lastReturned = null;
 
+            @Override
             public boolean hasNext() {
                 return next != null;
             }
 
+            @Override
             public E next() {
                 if (next == null)
                     throw new NoSuchElementException();
@@ -288,7 +292,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
     }
 
     public NavigableSet<E> subSet(E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
-        return new SubSetView<E>(this, true, fromElement, fromInclusive, true, toElement, toInclusive);
+        return new SubSetView<>(this, true, fromElement, fromInclusive, true, toElement, toInclusive);
     }
 
     public SortedSet<E> tailSet(E fromElement) {
@@ -296,7 +300,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
     }
 
     public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
-        return new SubSetView<E>(this, true, fromElement, inclusive, false, null, false);
+        return new SubSetView<>(this, true, fromElement, inclusive, false, null, false);
     }
 
     private boolean colorOf(Node<E> p) {
@@ -356,7 +360,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
                 }
                 if (colorOf(leftOf(sib)) == BLACK && colorOf(rightOf(sib)) == BLACK) {
                     setColor(sib, RED);
-                    x = parentOf(x); // ADDED: advance x up the tree
+                    x = parentOf(x);
                 } else {
                     if (colorOf(rightOf(sib)) == BLACK) {
                         setColor(leftOf(sib), BLACK);
@@ -552,108 +556,90 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             this.set = set;
         }
 
-        @Override
         public E lower(E e) {
             return set.higher(e);
         }
 
-        @Override
         public E floor(E e) {
             return set.ceiling(e);
         }
 
-        @Override
         public E ceiling(E e) {
             return set.floor(e);
         }
 
-        @Override
         public E higher(E e) {
             return set.lower(e);
         }
 
-        @Override
         public E first() {
             return set.last();
         }
-        @Override
+
         public E last() {
             return set.first();
         }
 
-        @Override
         public E pollFirst() {
             return set.pollLast();
         }
 
-        @Override
         public E pollLast() {
             return set.pollFirst();
         }
 
-        @Override
         public Iterator<E> iterator() {
             return set.descendingIterator();
         }
 
-        @Override
         public Iterator<E> descendingIterator() {
             return set.iterator();
         }
 
-        @Override
         public NavigableSet<E> descendingSet() {
             return set;
         }
 
-        @Override
         public boolean contains(Object o) {
             return set.contains(o);
         }
 
-        @Override
         public boolean remove(Object o) {
             return set.remove(o);
         }
 
-        @Override
         public void clear() {
             set.clear();
         }
 
-        @Override
         public int size() {
             return set.size();
         }
 
-        @Override
         public Comparator<? super E> comparator() {
             return reverseOrder(set.comparator());
         }
 
-        @Override
         public NavigableSet<E> subSet(E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
             return set.subSet(toElement, toInclusive, fromElement, fromInclusive).descendingSet();
         }
-        @Override
+
         public NavigableSet<E> headSet(E toElement, boolean inclusive) {
             return set.tailSet(toElement, inclusive).descendingSet();
         }
-        @Override public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
+
+        public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
             return set.headSet(fromElement, inclusive).descendingSet();
         }
 
-        @Override
         public SortedSet<E> subSet(E fromElement, E toElement) {
             return subSet(fromElement, true, toElement, false);
         }
 
-        @Override
         public SortedSet<E> headSet(E toElement) {
             return headSet(toElement, false);
         }
 
-        @Override
         public SortedSet<E> tailSet(E fromElement) {
             return tailSet(fromElement, true);
         }
@@ -691,7 +677,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
                    boolean highBounded, E toElement, boolean toInclusive) {
             if (lowBounded && highBounded)
                 if (set.compare(fromElement, toElement) > 0)
-                    throw new IllegalArgumentException("fromElement > toElement");
+                    throw new IllegalArgumentException();
             this.set = set;
             this.lowBounded = lowBounded;
             this.fromElement = fromElement;
@@ -701,14 +687,12 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             this.toInclusive = toInclusive;
         }
 
-        @Override
         public boolean add(E e) {
             if (!inRange(e))
-                throw new IllegalArgumentException("element out of range");
+                throw new IllegalArgumentException();
             return set.add(e);
         }
 
-        @Override
         public E ceiling(E e) {
             if (tooLow(e))
                 return firstOrNull();
@@ -718,27 +702,22 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             return (candidate != null && inRange(candidate)) ? candidate : null;
         }
 
-        @Override
         public Comparator<? super E> comparator() {
             return set.comparator();
         }
 
-        @Override
         public boolean contains(Object o) {
             return inRange(o) && set.contains(o);
         }
 
-        @Override
         public Iterator<E> descendingIterator() {
             return descendingSet().iterator();
         }
 
-        @Override
         public NavigableSet<E> descendingSet() {
             return new DescendingSetView<>(this);
         }
 
-        @Override
         public E first() {
             E nodeVal;
             if (!lowBounded)
@@ -760,7 +739,6 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             }
         }
 
-        @Override
         public E floor(E e) {
             if (tooHigh(e))
                 return lastOrNull();
@@ -770,19 +748,16 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             return (candidate != null && inRange(candidate)) ? candidate : null;
         }
 
-        @Override
         public SortedSet<E> headSet(E toElement) {
             return headSet(toElement, false);
         }
 
-        @Override
         public NavigableSet<E> headSet(E toElement, boolean inclusive) {
             if (tooLowBound(toElement, inclusive) || tooHighBound(toElement, inclusive))
-                throw new IllegalArgumentException("out of bounds");
-            return new SubSetView<E>(set, lowBounded, fromElement, fromInclusive, true, toElement, inclusive);
+                throw new IllegalArgumentException();
+            return new SubSetView<>(set, lowBounded, fromElement, fromInclusive, true, toElement, inclusive);
         }
 
-        @Override
         public E higher(E e) {
             if (tooLow(e))
                 return firstOrNull();
@@ -808,7 +783,8 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
 
                 @Override
                 public E next() {
-                    if (nextVal == null) throw new NoSuchElementException();
+                    if (nextVal == null)
+                        throw new NoSuchElementException();
                     lastReturned = nextVal;
                     nextVal = higher(nextVal);
                     return lastReturned;
@@ -816,14 +792,14 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
 
                 @Override
                 public void remove() {
-                    if (lastReturned == null) throw new IllegalStateException();
+                    if (lastReturned == null)
+                        throw new IllegalStateException();
                     set.remove(lastReturned);
                     lastReturned = null;
                 }
             };
         }
 
-        @Override
         public E last() {
             E nodeVal;
             if (!highBounded)
@@ -837,13 +813,6 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             return nodeVal;
         }
 
-        private E lastOrNull() {
-            try {
-                return last();
-            } catch (NoSuchElementException e) { return null; }
-        }
-
-        @Override
         public E lower(E e) {
             if (tooHigh(e))
                 return lastOrNull();
@@ -853,7 +822,6 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             return (candidate != null && inRange(candidate)) ? candidate : null;
         }
 
-        @Override
         public E pollFirst() {
             E e = firstOrNull();
             if (e != null)
@@ -861,7 +829,6 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             return e;
         }
 
-        @Override
         public E pollLast() {
             E e = lastOrNull();
             if (e != null)
@@ -869,12 +836,10 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             return e;
         }
 
-        @Override
         public boolean remove(Object o) {
             return inRange(o) && set.remove(o);
         }
 
-        @Override
         public int size() {
             int count = 0;
             for (E ignored : this)
@@ -882,29 +847,31 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             return count;
         }
 
-        @Override
         public SortedSet<E> subSet(E fromElement, E toElement) {
             return subSet(fromElement, true, toElement, false);
         }
 
-        @Override
         public NavigableSet<E> subSet(E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
             if (tooLowBound(fromElement, fromInclusive) || tooHighBound(fromElement, fromInclusive) ||
                     tooLowBound(toElement, toInclusive) || tooHighBound(toElement, toInclusive))
-                throw new IllegalArgumentException("out of bounds");
-            return new SubSetView<E>(set, true, fromElement, fromInclusive, true, toElement, toInclusive);
+                throw new IllegalArgumentException();
+            return new SubSetView<>(set, true, fromElement, fromInclusive, true, toElement, toInclusive);
         }
 
-        @Override
         public SortedSet<E> tailSet(E fromElement) {
             return tailSet(fromElement, true);
         }
 
-        @Override
         public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
             if (tooLowBound(fromElement, inclusive) || tooHighBound(fromElement, inclusive))
-                throw new IllegalArgumentException("out of bounds");
-            return new SubSetView<E>(set, true, fromElement, inclusive, highBounded, toElement, toInclusive);
+                throw new IllegalArgumentException();
+            return new SubSetView<>(set, true, fromElement, inclusive, highBounded, toElement, toInclusive);
+        }
+
+        private E lastOrNull() {
+            try {
+                return last();
+            } catch (NoSuchElementException e) { return null; }
         }
 
         private boolean tooHigh(Object o) {

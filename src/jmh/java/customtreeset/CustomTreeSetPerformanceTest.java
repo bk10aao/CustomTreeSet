@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 @Fork(1)
 public class CustomTreeSetPerformanceTest {
 
-    @Param({ "10000", "20000", "30000", "40000", "50000", "70000", "80000", "90000", "100000"})
+    @Param({ "10000", "20000", "30000", "40000", "50000", "60000", "70000", "80000", "90000", "100000"})
     private int size;
 
     private Integer[] elements;
