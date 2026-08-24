@@ -68,7 +68,7 @@ sns.heatmap(clipped_heatmap_data,
             xticklabels=sizes,
             yticklabels=sorted_methods,
             ax=ax,
-            cbar_kws={'label': '← JDK Faster | Relative Speedup Scale (Clipped at 16×) | Custom Faster →'},
+            cbar_kws={'label': '← JDK Faster | Relative Speedup Scale | Custom Faster →'},
             linewidths=0.8,
             linecolor='#555555',
             annot_kws={'size': 10, 'weight': 'bold', 'color': '#000000'})   # ← black text

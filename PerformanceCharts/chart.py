@@ -25,7 +25,7 @@ import numpy as np
 
 CUSTOMTREESET_CSV_PATH = "CustomTreeSet_jmh_performance.csv"
 TREESET_CSV_PATH = "TreeSet_jmh_performance.csv"
-OUTPUT_DIR = "charts"
+OUTPUT_DIR = ""
 
 COLORS = {
     'purple': '#9B6EF3',  # CustomTreeSet

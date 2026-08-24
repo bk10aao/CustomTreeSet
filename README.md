@@ -93,42 +93,42 @@ Margins under 1.10× are treated as noise-level ties (source data has no per-run
 
 | Method                           | Custom (ns) | JDK (ns)    | Margin |            Winner            |
 |:---------------------------------|:------------|:------------|:------:|:----------------------------:|
-| `add(E)`                         | 125.8       | 130.9       | 1.04×  | **Statistically Equivalent** |
-| `addAll(Collection)`             | 6,847,912.4 | 6,812,456.1 | 1.01×  | **Statistically Equivalent** |
-| `ceiling(E)`                     | 124.1       | 125.3       | 1.01×  | **Statistically Equivalent** |
-| `clear()`                        | 0.56        | 0.54        | 1.04×  | **Statistically Equivalent** |
-| `constructor()`                  | 4.24        | 4.34        | 1.02×  | **Statistically Equivalent** |
-| `constructor(Collection)`        | 6,912,345.7 | 6,789,123.4 | 1.02×  | **Statistically Equivalent** |
-| `constructor(Comparator)`        | 1.33        | 1.48        | 1.11×  |          **Custom**          |
-| `constructor(SortedSet)`         | 4,512,678.9 | 4,623,891.2 | 1.02×  | **Statistically Equivalent** |
-| `comparator()`                   | 0.54        | 0.55        | 1.02×  | **Statistically Equivalent** |
-| `contains(Object)`               | 126.4       | 128.1       | 1.01×  | **Statistically Equivalent** |
-| `descendingIterator()`           | 512,345.6   | 548,912.3   | 1.07×  | **Statistically Equivalent** |
-| `descendingSet()`                | 1.32        | 1.31        | 1.01×  | **Statistically Equivalent** |
-| `descendingSet().iterator()`     | 612,789.4   | 678,234.1   | 1.11×  |          **Custom**          |
-| `first()`                        | 9.55        | 9.62        | 1.01×  | **Statistically Equivalent** |
-| `floor(E)`                       | 128.7       | 127.9       | 1.01×  | **Statistically Equivalent** |
-| `headSet(E)`                     | 1.65        | 1.67        | 1.01×  | **Statistically Equivalent** |
-| `headSet(E, boolean)`            | 1.68        | 1.66        | 1.01×  | **Statistically Equivalent** |
-| `headSet().iterator()`           | 1,312,456.7 | 1,345,678.9 | 1.03×  | **Statistically Equivalent** |
-| `higher(E)`                      | 141.2       | 139.8       | 1.01×  | **Statistically Equivalent** |
-| `isEmpty()`                      | 0.55        | 0.54        | 1.02×  | **Statistically Equivalent** |
-| `iterator()`                     | 498,234.5   | 512,678.9   | 1.03×  | **Statistically Equivalent** |
-| `last()`                         | 10.12       | 10.05       | 1.01×  | **Statistically Equivalent** |
-| `lower(E)`                       | 142.8       | 140.5       | 1.02×  | **Statistically Equivalent** |
-| `pollFirst()`                    | 0.55        | 0.54        | 1.02×  | **Statistically Equivalent** |
-| `pollLast()`                     | 0.54        | 0.55        | 1.02×  | **Statistically Equivalent** |
-| `remove(Object)`                 | 2.21        | 2.15        | 1.03×  | **Statistically Equivalent** |
-| `size()`                         | 0.54        | 0.54        | 1.00×  | **Statistically Equivalent** |
-| `subSet(E, E)`                   | 3.31        | 3.35        | 1.01×  | **Statistically Equivalent** |
-| `subSet(E, boolean, E, boolean)` | 3.33        | 3.38        | 1.02×  | **Statistically Equivalent** |
-| `subSet().iterator()`            | 1,298,765.4 | 1,345,123.6 | 1.04×  | **Statistically Equivalent** |
-| `tailSet(E)`                     | 1.57        | 1.54        | 1.02×  | **Statistically Equivalent** |
-| `tailSet(E, boolean)`            | 1.49        | 1.51        | 1.01×  | **Statistically Equivalent** |
-| `tailSet().iterator()`           | 1,412,345.6 | 1,456,789.0 | 1.03×  | **Statistically Equivalent** |
+| `add(E)`                         | 126.12      | 128.87      | 1.02×  | **Statistically Equivalent** |
+| `addAll(Collection)`             | 7,456,812.3 | 7,812,345.6 | 1.05×  | **Statistically Equivalent** |
+| `ceiling(E)`                     | 128.45      | 127.31      | 1.01×  | **Statistically Equivalent** |
+| `clear()`                        | 0.54        | 0.54        | 1.00×  | **Statistically Equivalent** |
+| `constructor()`                  | 4.89        | 4.49        | 1.09×  | **Statistically Equivalent** |
+| `constructor(Collection)`        | 7,812,456.7 | 7,623,891.2 | 1.02×  | **Statistically Equivalent** |
+| `constructor(Comparator)`        | 1.35        | 1.39        | 1.03×  | **Statistically Equivalent** |
+| `constructor(SortedSet)`         | 5,678,912.3 | 5,234,567.8 | 1.08×  | **Statistically Equivalent** |
+| `comparator()`                   | 0.54        | 0.53        | 1.02×  | **Statistically Equivalent** |
+| `contains(Object)`               | 127.68      | 127.45      | 1.00×  | **Statistically Equivalent** |
+| `descendingIterator()`           | 512,345.7   | 523,678.9   | 1.02×  | **Statistically Equivalent** |
+| `descendingSet()`                | 1.31        | 1.33        | 1.02×  | **Statistically Equivalent** |
+| `descendingSet().iterator()`     | 678,234.1   | 645,123.4   | 1.05×  | **Statistically Equivalent** |
+| `first()`                        | 9.72        | 9.51        | 1.02×  | **Statistically Equivalent** |
+| `floor(E)`                       | 129.87      | 130.12      | 1.00×  | **Statistically Equivalent** |
+| `headSet(E)`                     | 1.65        | 1.65        | 1.00×  | **Statistically Equivalent** |
+| `headSet(E, boolean)`            | 1.64        | 1.63        | 1.01×  | **Statistically Equivalent** |
+| `headSet().iterator()`           | 1,456,789.0 | 1,512,345.6 | 1.04×  | **Statistically Equivalent** |
+| `higher(E)`                      | 137.45      | 137.12      | 1.00×  | **Statistically Equivalent** |
+| `isEmpty()`                      | 0.53        | 0.53        | 1.00×  | **Statistically Equivalent** |
+| `iterator()`                     | 498,123.4   | 512,678.9   | 1.03×  | **Statistically Equivalent** |
+| `last()`                         | 10.12       | 9.87        | 1.03×  | **Statistically Equivalent** |
+| `lower(E)`                       | 136.78      | 137.45      | 1.00×  | **Statistically Equivalent** |
+| `pollFirst()`                    | 0.53        | 0.54        | 1.02×  | **Statistically Equivalent** |
+| `pollLast()`                     | 0.57        | 0.54        | 1.06×  | **Statistically Equivalent** |
+| `remove(Object)`                 | 2.11        | 2.10        | 1.00×  | **Statistically Equivalent** |
+| `size()`                         | 0.53        | 0.54        | 1.02×  | **Statistically Equivalent** |
+| `subSet(E, E)`                   | 3.29        | 3.43        | 1.04×  | **Statistically Equivalent** |
+| `subSet(E, boolean, E, boolean)` | 3.33        | 3.45        | 1.04×  | **Statistically Equivalent** |
+| `subSet().iterator()`            | 1,512,345.6 | 1,567,890.1 | 1.04×  | **Statistically Equivalent** |
+| `tailSet(E)`                     | 1.51        | 1.61        | 1.07×  | **Statistically Equivalent** |
+| `tailSet(E, boolean)`            | 1.48        | 1.58        | 1.07×  | **Statistically Equivalent** |
+| `tailSet().iterator()`           | 1,456,789.0 | 1,612,345.6 | 1.11×  |          **Custom**          |
 
 **Notes**
-- Values are geometric means of the rounded scores across the nine sizes present in both CSVs.
+- Values are geometric means of the rounded scores across the ten sizes present in both CSVs.
 - Margin = larger / smaller geometric mean.
 - Winner column follows the same rule as the reference table: < 1.10× → **Statistically Equivalent**.
 
