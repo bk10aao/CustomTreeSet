@@ -2,7 +2,7 @@
 
 An implementation of a Java TreeSet using a Red-Black Tree.
 
-All methods implemented are identical to those found in the Java NavigableMap interface.
+All methods implemented are identical to those found in the Java NavigableSet interface.
 
 # Build and Test
 
