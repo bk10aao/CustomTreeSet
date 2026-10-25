@@ -78,7 +78,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @param comparator the comparator used to order elements, or {@code null}
      *                   to use the natural ordering of the elements
      */
-    public CustomTreeSet(Comparator<? super E> comparator) {
+    public CustomTreeSet(final Comparator<? super E> comparator) {
         this.comparator = comparator;
     }
 
@@ -91,7 +91,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      *                               element in {@code c} is {@code null}
      * @throws ClassCastException   if the elements in {@code c} are not mutually comparable
      */
-    public CustomTreeSet(Collection<? extends E> c) {
+    public CustomTreeSet(final Collection<? extends E> c) {
         this.comparator = null;
         addAll(c);
     }
@@ -103,7 +103,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @param s the sorted set whose elements and comparator are to be used
      * @throws NullPointerException if {@code s} is {@code null}
      */
-    public CustomTreeSet(SortedSet<E> s) {
+    public CustomTreeSet(final SortedSet<E> s) {
         this.comparator = s.comparator();
         addAll(s);
     }
@@ -120,7 +120,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @return {@code true} if this set did not already contain the specified element
      * @throws ClassCastException if {@code e} cannot be compared with the elements already in this set
      */
-    public boolean add(E e) {
+    public boolean add(final E e) {
         if(root == null) {
             compare(e, e);
             root = new Node<>(e, null);
@@ -160,8 +160,10 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      *         or {@code null} if no such element exists
      * @throws NullPointerException if {@code item} is {@code null}
      */
-    public E ceiling(E item) {
+    public E ceiling(final E item) {
         requireNonNull(item);
+        if(root == null)
+            return null;
         Node<E> p = root;
         Node<E> candidate = null;
         while (p != null) {
@@ -206,8 +208,10 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @throws NullPointerException if {@code o} is {@code null}
      * @throws ClassCastException   if {@code o} cannot be compared with the elements in this set
      */
-    public boolean contains(Object o) {
+    public boolean contains(final Object o) {
         requireNonNull(o);
+        if(root == null)
+            return false;
         Node<E> p = root;
         while (p != null) {
             int cmp = compare(o, p.value);
@@ -290,8 +294,10 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      *         or {@code null} if no such element exists
      * @throws NullPointerException if {@code item} is {@code null}
      */
-    public E floor(E item) {
+    public E floor(final E item) {
         requireNonNull(item);
+        if(root == null)
+            return null;
         Node<E> p = root;
         Node<E> candidate = null;
         while (p != null) {
@@ -316,7 +322,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      *         less than {@code toElement}
      * @throws NullPointerException if {@code toElement} is {@code null}
      */
-    public SortedSet<E> headSet(E toElement) {
+    public SortedSet<E> headSet(final E toElement) {
         return headSet(toElement, false);
     }
 
@@ -331,7 +337,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      *         than (or equal to) {@code toElement}
      * @throws NullPointerException if {@code toElement} is {@code null}
      */
-    public NavigableSet<E> headSet(E toElement, boolean inclusive) {
+    public NavigableSet<E> headSet(final E toElement, final boolean inclusive) {
         return new SubSetView<>(this, false, null, false, true, toElement, inclusive);
     }
 
@@ -344,8 +350,10 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      *         or {@code null} if no such element exists
      * @throws NullPointerException if {@code item} is {@code null}
      */
-    public E higher(E item) {
+    public E higher(final E item) {
         requireNonNull(item);
+        if(root == null)
+            return null;
         Node<E> p = root;
         Node<E> candidate = null;
         while (p != null)
@@ -427,8 +435,10 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @throws NullPointerException if {@code item} is {@code null}
      */
 
-    public E lower(E item) {
+    public E lower(final E item) {
         requireNonNull(item);
+        if(root == null)
+            return null;
         Node<E> p = root;
         Node<E> candidate = null;
         while (p != null)
@@ -478,8 +488,10 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @throws NullPointerException if {@code o} is {@code null}
      * @throws ClassCastException   if {@code o} cannot be compared with the elements in this set
      */
-    public boolean remove(Object o) {
+    public boolean remove(final Object o) {
         requireNonNull(o);
+        if(root == null)
+            return false;
         Node<E> p = root;
         while (p != null) {
             int cmp = compare(o, p.value);
@@ -514,7 +526,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @throws NullPointerException     if {@code fromElement} or {@code toElement} is {@code null}
      * @throws IllegalArgumentException if {@code fromElement} is greater than {@code toElement}
      */
-    public SortedSet<E> subSet(E fromElement, E toElement) {
+    public SortedSet<E> subSet(final E fromElement, final E toElement) {
         return subSet(fromElement, true, toElement, false);
     }
 
@@ -533,7 +545,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @throws IllegalArgumentException if {@code fromElement} is greater than {@code toElement}
      *                                   (or equal to it while either bound is exclusive)
      */
-    public NavigableSet<E> subSet(E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+    public NavigableSet<E> subSet(final E fromElement, final boolean fromInclusive, final E toElement, final boolean toInclusive) {
         return new SubSetView<>(this, true, fromElement, fromInclusive, true, toElement, toInclusive);
     }
 
@@ -546,7 +558,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      *         than or equal to {@code fromElement}
      * @throws NullPointerException if {@code fromElement} is {@code null}
      */
-    public SortedSet<E> tailSet(E fromElement) {
+    public SortedSet<E> tailSet(final E fromElement) {
         return tailSet(fromElement, true);
     }
 
@@ -561,7 +573,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      *         than (or equal to) {@code fromElement}
      * @throws NullPointerException if {@code fromElement} is {@code null}
      */
-    public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
+    public NavigableSet<E> tailSet(final E fromElement, final boolean inclusive) {
         return new SubSetView<>(this, true, fromElement, inclusive, false, null, false);
     }
 
@@ -572,7 +584,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @param p the node whose color is queried, may be {@code null}
      * @return {@link #RED} or {@link #BLACK}
      */
-    private boolean colorOf(Node<E> p) {
+    private boolean colorOf(final Node<E> p) {
         return p == null ? BLACK : p.color;
     }
 
@@ -609,7 +621,6 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             p.value = s.value;
             p = s;
         }
-
         Node<E> replacement = p.left != null ? p.left : p.right;
         if(replacement != null) {
             replacement.parent = p.parent;
@@ -755,10 +766,11 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @return the leftmost node in the tree, or {@code null} if the tree is empty
      */
     private Node<E> getFirstNode() {
+        if(root == null)
+            return null;
         Node<E> p = root;
-        if (p != null)
-            while (p.left != null)
-                p = p.left;
+        while (p.left != null)
+            p = p.left;
         return p;
     }
 
@@ -769,10 +781,11 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @return the rightmost node in the tree, or {@code null} if the tree is empty
      */
     private Node<E> getLastNode() {
+        if(root == null)
+            return null;
         Node<E> p = root;
-        if (p != null)
-            while (p.right != null)
-                p = p.right;
+        while (p.right != null)
+            p = p.right;
         return p;
     }
 
@@ -783,7 +796,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @param p the node whose left child is queried, may be {@code null}
      * @return {@code p.left}, or {@code null} if {@code p} is {@code null}
      */
-    private Node<E> leftOf(Node<E> p) {
+    private Node<E> leftOf(final Node<E> p) {
         return p == null ? null : p.left;
     }
 
@@ -795,7 +808,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @return {@code p.right}, or {@code null} if {@code p} is {@code null}
      */
 
-    private Node<E> rightOf(Node<E> p) {
+    private Node<E> rightOf(final Node<E> p) {
         return p == null ? null : p.right;
     }
 
@@ -806,7 +819,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @param p the node whose parent is queried, may be {@code null}
      * @return {@code p.parent}, or {@code null} if {@code p} is {@code null}
      */
-    private Node<E> parentOf(Node<E> p) {
+    private Node<E> parentOf(final Node<E> p) {
         return p == null ? null : p.parent;
     }
 
@@ -826,15 +839,15 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             while (p.right != null)
                 p = p.right;
             return p;
-        } else {
-            Node<E> p = t.parent;
-            Node<E> ch = t;
-            while (p != null && ch == p.left) {
-                ch = p;
-                p = p.parent;
-            }
-            return p;
         }
+        Node<E> p = t.parent;
+        Node<E> ch = t;
+        while (p != null && ch == p.left) {
+            ch = p;
+            p = p.parent;
+        }
+        return p;
+
     }
 
     /**
@@ -844,7 +857,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      *
      * @param p the node to rotate around
      */
-    private void rotateLeft(Node<E> p) {
+    private void rotateLeft(final Node<E> p) {
         if(p != null) {
             Node<E> r = p.right;
             p.right = r.left;
@@ -869,22 +882,23 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      *
      * @param p the node to rotate around
      */
-    private void rotateRight(Node<E> p) {
-        if(p != null) {
-            Node<E> l = p.left;
-            p.left = l.right;
-            if (l.right != null)
-                l.right.parent = p;
-            l.parent = p.parent;
-            if (p.parent == null)
-                root = l;
-            else if (p.parent.right == p)
-                p.parent.right = l;
-            else
-                p.parent.left = l;
-            l.right = p;
-            p.parent = l;
-        }
+    private void rotateRight(final Node<E> p) {
+        if(p == null)
+            return;
+        Node<E> l = p.left;
+        p.left = l.right;
+        if (l.right != null)
+            l.right.parent = p;
+        l.parent = p.parent;
+        if (p.parent == null)
+            root = l;
+        else if (p.parent.right == p)
+            p.parent.right = l;
+        else
+            p.parent.left = l;
+        l.right = p;
+        p.parent = l;
+
     }
 
     /**
@@ -895,7 +909,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @param p     the node to recolor, may be {@code null}
      * @param color the new color, {@link #RED} or {@link #BLACK}
      */
-    private void setColor(Node<E> p, boolean color) {
+    private void setColor(final Node<E> p, final boolean color) {
         if(p != null)
             p.color = color;
     }
@@ -908,7 +922,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
      * @return the in-order successor of {@code t}, or {@code null} if
      *         {@code t} is {@code null} or has no successor
      */
-    private Node<E> successor(Node<E> t) {
+    private Node<E> successor(final Node<E> t) {
         if(t == null)
             return null;
         else if(t.right != null) {
@@ -916,15 +930,14 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
             while(p.left != null)
                 p = p.left;
             return p;
-        } else {
-            Node<E> p = t.parent;
-            Node<E> ch = t;
-            while(p != null && ch == p.right) {
-                ch = p;
-                p = p.parent;
-            }
-            return p;
         }
+        Node<E> p = t.parent;
+        Node<E> ch = t;
+        while(p != null && ch == p.right) {
+            ch = p;
+            p = p.parent;
+        }
+        return p;
     }
 
     /**
@@ -953,28 +966,28 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          *
          * @param set the set to present in reverse order
          */
-        DescendingSetView(NavigableSet<E> set) {
+        DescendingSetView(final NavigableSet<E> set) {
             this.set = set;
         }
 
         /**
          * {@inheritDoc} In reverse order, "lower" corresponds to the backing set's {@code higher}.
          */
-        public E lower(E e) {
+        public E lower(final E e) {
             return set.higher(e);
         }
 
         /**
          * {@inheritDoc} In reverse order, "floor" corresponds to the backing set's {@code ceiling}.
          */
-        public E floor(E e) {
+        public E floor(final E e) {
             return set.ceiling(e);
         }
 
         /**
          * {@inheritDoc} In reverse order, "ceiling" corresponds to the backing set's {@code floor}.
          */
-        public E ceiling(E e) {
+        public E ceiling(final E e) {
             return set.floor(e);
         }
 
@@ -982,7 +995,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          * {@inheritDoc} In reverse order, "higher" corresponds to the backing set's {@code lower}.
          */
 
-        public E higher(E e) {
+        public E higher(final E e) {
             return set.lower(e);
         }
 
@@ -1082,7 +1095,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          * requesting the mirrored bounds from the backing set and reversing
          * the resulting view.
          */
-        public NavigableSet<E> subSet(E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+        public NavigableSet<E> subSet(final E fromElement, final boolean fromInclusive, final E toElement, final boolean toInclusive) {
             return set.subSet(toElement, toInclusive, fromElement, fromInclusive).descendingSet();
         }
 
@@ -1090,7 +1103,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          * {@inheritDoc} Since iteration is reversed, a "head" (the largest
          * elements) is implemented as the backing set's tail, reversed.
          */
-        public NavigableSet<E> headSet(E toElement, boolean inclusive) {
+        public NavigableSet<E> headSet(final E toElement, final boolean inclusive) {
             return set.tailSet(toElement, inclusive).descendingSet();
         }
 
@@ -1098,28 +1111,28 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          * {@inheritDoc} Since iteration is reversed, a "tail" (the smallest
          * elements) is implemented as the backing set's head, reversed.
          */
-        public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
+        public NavigableSet<E> tailSet(final E fromElement, final boolean inclusive) {
             return set.headSet(fromElement, inclusive).descendingSet();
         }
 
         /**
          * {@inheritDoc}
          */
-        public SortedSet<E> subSet(E fromElement, E toElement) {
+        public SortedSet<E> subSet(final E fromElement, final E toElement) {
             return subSet(fromElement, true, toElement, false);
         }
 
         /**
          * {@inheritDoc}
          */
-        public SortedSet<E> headSet(E toElement) {
+        public SortedSet<E> headSet(final E toElement) {
             return headSet(toElement, false);
         }
 
         /**
          * {@inheritDoc}
          */
-        public SortedSet<E> tailSet(E fromElement) {
+        public SortedSet<E> tailSet(final E fromElement) {
             return tailSet(fromElement, true);
         }
     }
@@ -1248,12 +1261,11 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          * @throws IllegalArgumentException if both bounds are in effect and
          *                                   {@code fromElement} is greater than {@code toElement}
          */
-        SubSetView(CustomTreeSet<E> set,
-                   boolean lowBounded, E fromElement, boolean fromInclusive,
-                   boolean highBounded, E toElement, boolean toInclusive) {
-            if (lowBounded && highBounded)
-                if (set.compare(fromElement, toElement) > 0)
-                    throw new IllegalArgumentException();
+        SubSetView(final CustomTreeSet<E> set,
+                   final boolean lowBounded, final E fromElement, final boolean fromInclusive,
+                   final boolean highBounded, final E toElement, final boolean toInclusive) {
+            if (lowBounded && highBounded && set.compare(fromElement, toElement) > 0)
+                throw new IllegalArgumentException();
             this.set = set;
             this.lowBounded = lowBounded;
             this.fromElement = fromElement;
@@ -1268,7 +1280,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          *
          * @throws IllegalArgumentException if {@code e} lies outside this view's range
          */
-        public boolean add(E e) {
+        public boolean add(final E e) {
             if (!inRange(e))
                 throw new IllegalArgumentException();
             return set.add(e);
@@ -1277,7 +1289,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
         /**
          * {@inheritDoc}
          */
-        public E ceiling(E e) {
+        public E ceiling(final E e) {
             if (tooLow(e))
                 return firstOrNull();
             if (tooHigh(e))
@@ -1296,7 +1308,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
         /**
          * {@inheritDoc}
          */
-        public boolean contains(Object o) {
+        public boolean contains(final Object o) {
             return inRange(o) && set.contains(o);
         }
 
@@ -1335,7 +1347,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
         /**
          * {@inheritDoc}
          */
-        public E floor(E e) {
+        public E floor(final E e) {
             if (tooHigh(e))
                 return lastOrNull();
             if (tooLow(e))
@@ -1347,7 +1359,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
         /**
          * {@inheritDoc}
          */
-        public SortedSet<E> headSet(E toElement) {
+        public SortedSet<E> headSet(final E toElement) {
             return headSet(toElement, false);
         }
 
@@ -1356,7 +1368,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          *
          * @throws IllegalArgumentException if {@code toElement} lies outside this view's range
          */
-        public NavigableSet<E> headSet(E toElement, boolean inclusive) {
+        public NavigableSet<E> headSet(final E toElement, final boolean inclusive) {
             if (tooLowBound(toElement, inclusive) || tooHighBound(toElement, inclusive))
                 throw new IllegalArgumentException();
             return new SubSetView<>(set, lowBounded, fromElement, fromInclusive, true, toElement, inclusive);
@@ -1365,7 +1377,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
         /**
          * {@inheritDoc}
          */
-        public E higher(E e) {
+        public E higher(final E e) {
             if (tooLow(e))
                 return firstOrNull();
             if (tooHigh(e))
@@ -1431,7 +1443,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
         /**
          * {@inheritDoc}
          */
-        public E lower(E e) {
+        public E lower(final E e) {
             if (tooHigh(e))
                 return lastOrNull();
             if (tooLow(e))
@@ -1463,7 +1475,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
         /**
          * {@inheritDoc}
          */
-        public boolean remove(Object o) {
+        public boolean remove(final Object o) {
             return inRange(o) && set.remove(o);
         }
 
@@ -1481,7 +1493,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
         /**
          * {@inheritDoc}
          */
-        public SortedSet<E> subSet(E fromElement, E toElement) {
+        public SortedSet<E> subSet(final E fromElement, final E toElement) {
             return subSet(fromElement, true, toElement, false);
         }
 
@@ -1491,7 +1503,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          * @throws IllegalArgumentException if the bounds lie outside this view's range,
          *                                   or {@code fromElement} is greater than {@code toElement}
          */
-        public NavigableSet<E> subSet(E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+        public NavigableSet<E> subSet(final E fromElement, final boolean fromInclusive, final E toElement, final boolean toInclusive) {
             if (tooLowBound(fromElement, fromInclusive) || tooHighBound(fromElement, fromInclusive) ||
                     tooLowBound(toElement, toInclusive) || tooHighBound(toElement, toInclusive))
                 throw new IllegalArgumentException();
@@ -1501,7 +1513,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
         /**
          * {@inheritDoc}
          */
-        public SortedSet<E> tailSet(E fromElement) {
+        public SortedSet<E> tailSet(final E fromElement) {
             return tailSet(fromElement, true);
         }
 
@@ -1510,7 +1522,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          *
          * @throws IllegalArgumentException if {@code fromElement} lies outside this view's range
          */
-        public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
+        public NavigableSet<E> tailSet(final E fromElement, final boolean inclusive) {
             if (tooLowBound(fromElement, inclusive) || tooHighBound(fromElement, inclusive))
                 throw new IllegalArgumentException();
             return new SubSetView<>(set, true, fromElement, inclusive, highBounded, toElement, toInclusive);
@@ -1536,7 +1548,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          * @param o the object to test
          * @return {@code true} if {@code o} is in range
          */
-        private boolean inRange(Object o) {
+        private boolean inRange(final Object o) {
             return !tooLow(o) && !tooHigh(o);
         }
 
@@ -1560,7 +1572,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          * @param o the object to test
          * @return {@code true} if {@code o} is out of range on the high side
          */
-        private boolean tooHigh(Object o) {
+        private boolean tooHigh(final Object o) {
             if (!highBounded)
                 return false;
             int cmp = set.compare(o, toElement);
@@ -1576,7 +1588,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          * @param inclusive whether the candidate bound would be inclusive
          * @return {@code true} if {@code element} is out of range on the high side
          */
-        private boolean tooHighBound(E element, boolean inclusive) {
+        private boolean tooHighBound(final E element, final boolean inclusive) {
             if (!highBounded)
                 return false;
             int cmp = set.compare(element, toElement);
@@ -1592,7 +1604,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          * @param o the object to test
          * @return {@code true} if {@code o} is out of range on the low side
          */
-        private boolean tooLow(Object o) {
+        private boolean tooLow(final Object o) {
             if (!lowBounded)
                 return false;
             int cmp = set.compare(o, fromElement);
@@ -1608,7 +1620,7 @@ public class CustomTreeSet<E> extends AbstractSet<E> implements NavigableSet<E> 
          * @param inclusive whether the candidate bound would be inclusive
          * @return {@code true} if {@code element} is out of range on the low side
          */
-        private boolean tooLowBound(E element, boolean inclusive) {
+        private boolean tooLowBound(final E element, final boolean inclusive) {
             if (!lowBounded)
                 return false;
             int cmp = set.compare(element, fromElement);
